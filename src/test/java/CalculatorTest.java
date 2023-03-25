@@ -15,7 +15,6 @@ public class CalculatorTest {
         Assertions.assertEquals( -4, test.sum(-5, 1) );
     }
 
-
     @Test
     public void subtract_4and2_return2() {
         Assertions.assertEquals( 2, test.subtract(4, 2) );
@@ -32,8 +31,8 @@ public class CalculatorTest {
     }
 
     @Test
-    public void divide_500and0_returnNaN() {
-//        Assertions.assertThrows( "/ by zero", test.divide(500, 0) );
+    public void divide_5and0_returnExceptionErrorMessage() {
+        Assertions.assertThrows( ArithmeticException.class, () -> test.divide(5, 0) );
     }
 
 }
