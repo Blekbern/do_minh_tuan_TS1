@@ -1,6 +1,6 @@
 package cz.cvut.fel.ts1.hw04.storage;
 
-import shop.*;
+import cz.cvut.fel.ts1.hw04.shop.*;
 
 
 /**

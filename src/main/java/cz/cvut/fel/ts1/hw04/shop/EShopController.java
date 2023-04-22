@@ -1,12 +1,12 @@
 package cz.cvut.fel.ts1.hw04.shop;
 
-import archive.PurchasesArchive;
+import cz.cvut.fel.ts1.hw04.archive.PurchasesArchive;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import storage.*;
-import archive.*;
+import cz.cvut.fel.ts1.hw04.storage.*;
+import cz.cvut.fel.ts1.hw04.archive.*;
 
 
 public class EShopController {

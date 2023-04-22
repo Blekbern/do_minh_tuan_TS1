@@ -1,10 +1,10 @@
 package cz.cvut.fel.ts1.hw04.storage;
 
-import archive.PurchasesArchive;
+import cz.cvut.fel.ts1.hw04.archive.PurchasesArchive;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import shop.*;
+import cz.cvut.fel.ts1.hw04.shop.*;
 
 public class Storage {
 

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import shop.*;
-import storage.*;
+import cz.cvut.fel.ts1.hw04.shop.*;
+import cz.cvut.fel.ts1.hw04.storage.*;
 
 
 /**
