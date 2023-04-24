@@ -14,7 +14,7 @@ public class StandardItemTest {
     private String nameTest;
     private float priceTest;
     private String categoryTest;
-    private int loyalPointsTest;
+    private int loyaltyPointsTest;
 
     @Test
     public void StandardItem_testConstructor() {
@@ -22,13 +22,13 @@ public class StandardItemTest {
         nameTest = "Name test";
         priceTest = 99.99f;
         categoryTest = "Category test";
-        loyalPointsTest = 100;
+        loyaltyPointsTest = 100;
 
         Assertions.assertEquals( test.getID(), idTest );
         Assertions.assertEquals( test.getName(), nameTest );
         Assertions.assertEquals( test.getPrice(), priceTest );
         Assertions.assertEquals( test.getCategory(), categoryTest );
-        Assertions.assertEquals( test.getLoyaltyPoints(), loyalPointsTest );
+        Assertions.assertEquals( test.getLoyaltyPoints(), loyaltyPointsTest );
     }
 
     @Test
@@ -37,13 +37,13 @@ public class StandardItemTest {
         nameTest = "Name test";
         priceTest = 99.99f;
         categoryTest = "Category test";
-        loyalPointsTest = 100;
+        loyaltyPointsTest = 100;
 
         Assertions.assertEquals( test.getID(), idTest ); // fail
         Assertions.assertEquals( test.getName(), nameTest );
         Assertions.assertEquals( test.getPrice(), priceTest );
         Assertions.assertEquals( test.getCategory(), categoryTest );
-        Assertions.assertEquals( test.getLoyaltyPoints(), loyalPointsTest );
+        Assertions.assertEquals( test.getLoyaltyPoints(), loyaltyPointsTest );
     }
 
     @Test
@@ -57,6 +57,19 @@ public class StandardItemTest {
         Assertions.assertEquals( true, copyTest.getLoyaltyPoints() == test.getLoyaltyPoints() );
     }
 
-//    @ParameterizedTest
-//    public void equals_
+   @ParameterizedTest
+   @CsvSource({
+           "1, Name test, 99.99f, Category test, 100",
+           "2, Name test, 99.99f, Category test, 100",
+           "1, Name TEST, 77.77f, Category test, 99",
+           "1, Name test, 99.99f, C4T3G0RY test, 100",
+           "3, Name test, 99.99f, Category test, 33"
+   })
+   public void equals_testTwoObjectEquals( int id, String name, float price, String category, int loyaltyPoints ) {
+       Assertions.assertEquals( test.getID(), id );
+       Assertions.assertEquals( test.getName(), name );
+       Assertions.assertEquals( test.getPrice(), price );
+       Assertions.assertEquals( test.getCategory(), category );
+       Assertions.assertEquals( test.getLoyaltyPoints(), loyaltyPoints );
+   }
 }
