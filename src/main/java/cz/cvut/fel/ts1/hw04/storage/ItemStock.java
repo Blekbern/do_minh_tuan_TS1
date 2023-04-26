@@ -10,7 +10,7 @@ public class ItemStock {
     private Item refItem;
     private int count;
     
-    ItemStock(Item refItem) {
+    public ItemStock(Item refItem) {
         this.refItem = refItem;
         count = 0;
     }
@@ -20,19 +20,19 @@ public class ItemStock {
         return "STOCK OF ITEM:  "+refItem.toString()+"    PIECES IN STORAGE: "+count;
     }
     
-    void IncreaseItemCount(int x) {
+    public void IncreaseItemCount(int x) {
         count += x;
     }
     
-    void decreaseItemCount(int x) {
+    public void decreaseItemCount(int x) {
         count -= x;
     }
     
-    int getCount() {
+    public int getCount() {
         return count;
     }
     
-    Item getItem() {
+    public Item getItem() {
         return refItem;
     }
 }
