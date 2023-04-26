@@ -13,7 +13,7 @@
 //
 //    @BeforeEach
 //    public void setMailData() {
-//        to = "Reciever";
+//        to = "Receiver";
 //        subject = "Subject of mail";
 //        body = "Mail body";
 //        mailHelper.setMail( to, subject, body );
