@@ -19,11 +19,16 @@ public class PurchasesArchive {
         itemPurchaseArchive = new HashMap();
         orderArchive = new ArrayList();
     }
-    
+
+    public PurchasesArchive( ArrayList<Order> listOfOrders ) {
+        orderArchive = listOfOrders;
+    }
+
     public PurchasesArchive(HashMap<Integer, ItemPurchaseArchiveEntry> itemArchive, ArrayList<Order> orderArchive) {
         this.itemPurchaseArchive = itemArchive;
         this.orderArchive = orderArchive;
     }
+
     
     public void printItemPurchaseStatistics() {
         Collection<ItemPurchaseArchiveEntry> itemEntries = itemPurchaseArchive.values();
@@ -37,10 +42,7 @@ public class PurchasesArchive {
         }
         return 0;
     }
-    
 
-    
-    
     public void putOrderToPurchasesArchive(Order order) {
         orderArchive.add(order);
         ArrayList<Item> orderItems = order.getItems();
@@ -52,6 +54,10 @@ public class PurchasesArchive {
                 itemPurchaseArchive.put(i.getID(), new ItemPurchaseArchiveEntry(i));
             }
         }
+    }
+
+    public ArrayList<Order> getOrderArchive() {
+        return orderArchive;
     }
     
 }

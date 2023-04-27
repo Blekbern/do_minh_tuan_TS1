@@ -7,6 +7,8 @@ import cz.cvut.fel.ts1.hw04.shop.StandardItem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -17,6 +19,8 @@ public class PurchasesArchiveTest {
 
     private ArrayList<StandardItem> itemsOrder;
     private PurchasesArchive archive;
+    private ShoppingCart cart;
+    private Order order;
 
     @BeforeEach
     public void initAttr() {
@@ -39,11 +43,11 @@ public class PurchasesArchiveTest {
 
         // wtf gotta make a whole new cart with a whole new order to put an order in an archive gg
         // could make ItemPurchaseArchiveEntry public
-        ShoppingCart cart = new ShoppingCart();
+        cart = new ShoppingCart();
         for (StandardItem i : itemsOrder) {
             cart.addItem(i);
         }
-        Order order = new Order(cart, "Name order", "Address test", 1);
+        order = new Order(cart, "Name order", "Address test", 1);
         archive.putOrderToPurchasesArchive(order);
         // ----------------------------------------------------------------------------------------------------
 
@@ -84,5 +88,33 @@ public class PurchasesArchiveTest {
         Assertions.assertEquals( 1, itemsOrder.get( 1 ).getID() );
         Assertions.assertEquals( 1, itemsOrder.get( 2 ).getID() );
         Assertions.assertEquals( 2, itemsOrder.get( 3 ).getID() );
+        System.out.println( archive.getOrderArchive().get( 0 ).getItems() );
+    }
+
+    @Test
+    public void mockTestOrderArchive() {
+        PurchasesArchive mockArchive = Mockito.mock( PurchasesArchive.class );
+        mockArchive.putOrderToPurchasesArchive( order );
+        // cant put order inside the Mock idk
+        // Gets FIRST element of ARRAY_of_ORDERS ... then gets FIRST element of ARRAY_of_Items in THE ORDER ... then gets FIRST ELEMENT'S ID
+        Mockito.when( mockArchive.getOrderArchive().get( 0 ).getItems().get( 0 ).getID()) . thenReturn( 1 );
+        // Gets FIRST element of ARRAY_of_ORDERS ... then gets SECOND element of ARRAY_of_Items in THE ORDER ... then gets SECOND ELEMENT'S ID
+        Mockito.when( mockArchive.getOrderArchive().get( 0 ).getItems().get( 1 ).getID()) . thenReturn( 1 );
+        // Gets FIRST element of ARRAY_of_ORDERS ... then gets SIXTH element of ARRAY_of_Items in THE ORDER ... then gets SIXTH ELEMENT'S ID
+        Mockito.when( mockArchive.getOrderArchive().get( 0 ).getItems().get( 5 ).getID()) . thenReturn( 4 );
+    }
+
+    @Test
+    public void mockTestItemPurchaseArchiveEntry() {
+        ItemPurchaseArchiveEntry mockItem = Mockito.mock( ItemPurchaseArchiveEntry.class );
+        Mockito.when( mockItem.getCountHowManyTimesHasBeenSold() ).thenReturn( 1 );
+    }
+
+    @Test
+    public void mockTestConstructorItemPurchaseArchiveEntry() {
+        StandardItem item1 = new StandardItem( 1, "Name test", 1.99f, "Category test", 10 );
+        ItemPurchaseArchiveEntry mockItem = Mockito.mock( ItemPurchaseArchiveEntry.class );
+        Mockito.when(mockItem.getCountHowManyTimesHasBeenSold()).thenReturn( 1 );
+        Mockito.when(mockItem.getRefItem()).thenReturn( null );
     }
 }
