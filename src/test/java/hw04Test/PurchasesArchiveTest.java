@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PurchasesArchiveTest {
 
@@ -21,10 +22,7 @@ public class PurchasesArchiveTest {
     public void initAttr() {
         archive = new PurchasesArchive();
         itemsOrder = new ArrayList<StandardItem>();
-    }
 
-    @Test
-    public void testPrintItemPurchaseStatistics() {
         StandardItem item1 = new StandardItem(1, "Name test1", 1.99f, "Category test", 10);
         StandardItem item1a = new StandardItem(1, "Name test1", 1.99f, "Category test", 10);
         StandardItem item1b = new StandardItem(1, "Name test1", 1.99f, "Category test", 10);
@@ -40,6 +38,7 @@ public class PurchasesArchiveTest {
         itemsOrder.add(item4);
 
         // wtf gotta make a whole new cart with a whole new order to put an order in an archive gg
+        // could make ItemPurchaseArchiveEntry public
         ShoppingCart cart = new ShoppingCart();
         for (StandardItem i : itemsOrder) {
             cart.addItem(i);
@@ -47,6 +46,11 @@ public class PurchasesArchiveTest {
         Order order = new Order(cart, "Name order", "Address test", 1);
         archive.putOrderToPurchasesArchive(order);
         // ----------------------------------------------------------------------------------------------------
+
+    }
+
+    @Test
+    public void testPrintItemPurchaseStatistics() {
 
         // saving output stream
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -62,4 +66,23 @@ public class PurchasesArchiveTest {
         Assertions.assertEquals( outputStream.toString(), expectedOutput );
     }
 
+    @Test
+    public void testGetHowManyTimesHasBeenItemSold() {
+        StandardItem item1 = new StandardItem(1, "Name test1", 1.99f, "Category test", 10);
+        StandardItem item2 = new StandardItem(2, "Name test2", 2.99f, "Category test", 20);
+        StandardItem item3 = new StandardItem(420, "Name test420", 420.99f, "Category test", 420);
+        Assertions.assertEquals( 3, archive.getHowManyTimesHasBeenItemSold( item1 ) );
+        Assertions.assertEquals( 1, archive.getHowManyTimesHasBeenItemSold( item2 ) );
+        Assertions.assertEquals( 0, archive.getHowManyTimesHasBeenItemSold( item3 ) );
+        Assertions.assertEquals( -1, archive.getHowManyTimesHasBeenItemSold( item3 ) ); // fail
+    }
+
+    @Test
+    public void testPutOrderToPurchaseArchive() {
+        // [1, 1, 1, 2, 3, 4]
+        Assertions.assertEquals( 1, itemsOrder.get( 0 ).getID() );
+        Assertions.assertEquals( 1, itemsOrder.get( 1 ).getID() );
+        Assertions.assertEquals( 1, itemsOrder.get( 2 ).getID() );
+        Assertions.assertEquals( 2, itemsOrder.get( 3 ).getID() );
+    }
 }
