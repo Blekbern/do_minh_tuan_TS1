@@ -27,9 +27,9 @@ public class MockMailHelperTest {
     @Test
     public void mockTest() {
         int mailId = 1;
-        mailHelper.setMail("MockedTo", "MockedSubject", "MockedBody" );
+        mailHelper.setMail( "MockedTo", "MockedSubject", "MockedBody" );
         Mail mail = mailHelper.getMail();
-        Mockito.when( mockDBManager.findMail(mailId)).thenReturn(mail);
+        Mockito.when( mockDBManager.findMail(mailId) ) . thenReturn(mail);
         mailHelper.sendMail(mailId);
         System.out.println( mailHelper.getMail().getBody() );
         Mockito.verify(mockDBManager).findMail(mailId);
