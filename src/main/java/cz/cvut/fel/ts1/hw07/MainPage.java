@@ -13,9 +13,11 @@ public class MainPage {
 
     private WebDriver driver;
     @FindBy( how = How.CSS, using = "div[class='cross-nav cross-nav--wide'] a[class='register-link flyout-caption']" )
-    private WebElement LoginScreenAnchor;
+    private WebElement loginScreenAnchor;
+    @FindBy( how = How.CSS, using = "img[alt='Search Options']" )
+    private WebElement gearBtn;
     @FindBy( how = How.CSS, using = "#advanced-search-link" )
-    private WebElement AdvancedSearchBtn;
+    private WebElement advancedSearchSelect;
 
     public MainPage(WebDriver driver ) {
         WebDriverWait wait = new WebDriverWait( driver, Duration.ofSeconds(10) );
@@ -30,12 +32,17 @@ public class MainPage {
     }
 
     public LoginPage getLoginScreen() {
-        LoginScreenAnchor.click();
+        loginScreenAnchor.click();
         return new LoginPage( driver );
     }
 
-    public AdvancedSearch getAdvancedSearch() {
-        AdvancedSearchBtn.click();
-        return new AdvancedSearch( driver );
+    public MainPage openGearBtn() {
+        gearBtn.click();
+        return this;
+    }
+
+    public AdvancedSearchPage selectAdvancedSearch() {
+        advancedSearchSelect.click();
+        return new AdvancedSearchPage( driver );
     }
 }

@@ -17,11 +17,23 @@ public class LinkSpringerTest {
 
     @Test
     public void showLoginPage() {
-        new MainPage( driver ).showMainPage().getLoginScreen();
+        new MainPage( driver ).showMainPage()
+                .getLoginScreen();
     }
 
     @Test
     public void showAdvancedSearch() {
-        new MainPage( driver ).showMainPage().getAdvancedSearch();
+        new MainPage( driver ).showMainPage()
+                .openGearBtn()
+                .selectAdvancedSearch();
+    }
+
+    @Test
+    public void tryLogin() {
+        new MainPage( driver ).showMainPage()
+                .getLoginScreen()
+                .typeEmailField( "wtf@idk.com" )
+                .typePasswordField( "admin123" )
+                .clickLogin();
     }
 }
