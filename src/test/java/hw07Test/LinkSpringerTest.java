@@ -8,6 +8,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class LinkSpringerTest {
 
     FirefoxDriver driver;
+    MainPage mainPage;
 
     @BeforeEach
     public void init() {
@@ -16,24 +17,70 @@ public class LinkSpringerTest {
     }
 
     @Test
-    public void showLoginPage() {
-        new MainPage( driver ).showMainPage()
+    public void hideThisShit() {
+        new MainPage( driver ).showMainPage().getThisShitOffTheScreen();
+    }
+
+    @Test
+    public void testShowLoginPage() {
+        new MainPage( driver ).showMainPage().getThisShitOffTheScreen()
                 .getLoginScreen();
     }
 
     @Test
-    public void showAdvancedSearch() {
-        new MainPage( driver ).showMainPage()
+    public void testShowAdvancedSearch() {
+        new MainPage( driver ).showMainPage().getThisShitOffTheScreen()
                 .openGearBtn()
                 .selectAdvancedSearch();
     }
 
     @Test
-    public void tryLogin() {
-        new MainPage( driver ).showMainPage()
+    public void testLogin() {
+        new MainPage( driver ).showMainPage().getThisShitOffTheScreen()
                 .getLoginScreen()
                 .typeEmailField( "wtf@idk.com" )
                 .typePasswordField( "admin123" )
                 .clickLogin();
     }
+
+    @Test
+    public void testAdvancedSearch1() {
+        new MainPage( driver ).showMainPage().getThisShitOffTheScreen()
+                .openGearBtn()
+                .selectAdvancedSearch()
+                .typeAllWords( "this" )
+                .typeExactPhrase( "To be or not to be" )
+                .typeOneOfWords( "finger" )
+                .typeWithoutWords( "jacket" )
+                .clickSubmitBtn();
+    }
+
+    @Test
+    public void testAdvancedSearch2() {
+        new MainPage( driver ).showMainPage().getThisShitOffTheScreen()
+                .openGearBtn()
+                .selectAdvancedSearch()
+                .typeAllWords( "human" )
+                .typeExactPhrase( "existential crisis" )
+                .typeOneOfWords( "kill" )
+                .typeWithoutWords( "happiness" )
+                .typeTitleContains( "war" )
+                .typeStartYear( "0" )
+                .typeEndYear( "2022" )
+                .clickSubmitBtn();
+    }
+
+    @Test
+    public void testGetSearchResult() {
+        new MainPage( driver ).showMainPage().getThisShitOffTheScreen()
+                .getSearchResults( "Technological singularity" );
+    }
+
+    @Test
+    public void testSearchArticles() {
+        new MainPage( driver ).showMainPage().getThisShitOffTheScreen()
+                .getSearchResults( "Serial killers" )
+                .getArticleSearchRes();
+    }
+
 }

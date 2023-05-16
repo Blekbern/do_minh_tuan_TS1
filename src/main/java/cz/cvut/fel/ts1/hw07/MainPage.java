@@ -1,5 +1,6 @@
 package cz.cvut.fel.ts1.hw07;
 
+import cz.cvut.fel.ts1.Main;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,6 +19,15 @@ public class MainPage {
     private WebElement gearBtn;
     @FindBy( how = How.CSS, using = "#advanced-search-link" )
     private WebElement advancedSearchSelect;
+    @FindBy( how = How.CSS, using = "button.cc-button.cc-button--link.cc-banner__button.cc-banner__button-preferences" )
+    private WebElement manageCookies;
+    @FindBy(how = How.CSS, using = "button.cc-button.cc-button--small.cc-button--outline[data-cc-action='reject']")
+    private WebElement rejectEssentials;
+    @FindBy( how = How.CSS, using = "#query" )
+    private WebElement searchQuery;
+    @FindBy( how = How.CSS, using = "#search" )
+    private WebElement searchBtn;
+
 
     public MainPage(WebDriver driver ) {
         WebDriverWait wait = new WebDriverWait( driver, Duration.ofSeconds(10) );
@@ -28,6 +38,16 @@ public class MainPage {
 
     public MainPage showMainPage() {
         driver.get( "https://link.springer.com/" );
+        return this;
+    }
+
+    /**
+     * REJECTS NON ESSENTIAL COOKIES
+     * @return main page
+     */
+    public MainPage getThisShitOffTheScreen() {
+        manageCookies.click();
+        rejectEssentials.click();
         return this;
     }
 
@@ -45,4 +65,12 @@ public class MainPage {
         advancedSearchSelect.click();
         return new AdvancedSearchPage( driver );
     }
+
+    public SearchResult getSearchResults( String searchQuery ) {
+        this.searchQuery.sendKeys( searchQuery );
+        searchBtn.click();
+        return new SearchResult( driver );
+    }
+
+
 }
