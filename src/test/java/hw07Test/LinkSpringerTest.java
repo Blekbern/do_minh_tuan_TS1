@@ -8,7 +8,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class LinkSpringerTest {
 
     FirefoxDriver driver;
-    MainPage mainPage;
 
     @BeforeEach
     public void init() {
@@ -103,7 +102,8 @@ public class LinkSpringerTest {
                 .typeStartYear( "2023" )
                 .typeEndYear( "2023" )
                 .clickSubmitBtn()
-                .getArticleSearchRes();
+                .getArticleSearchRes()
+                .clickArticlePage( 0 );
     }
 
 }
