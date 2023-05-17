@@ -71,6 +71,16 @@ public class LinkSpringerTest {
     }
 
     @Test
+    public void testAdvancedSearch3() {
+        new MainPage( driver ).showMainPage().getThisShitOffTheScreen()
+                .openGearBtn()
+                .selectAdvancedSearch()
+                .typeAllWords( "Lakers in 5" )
+                .typeAuthor( "Sharpe" )
+                .clickSubmitBtn();
+    }
+
+    @Test
     public void testGetSearchResult() {
         new MainPage( driver ).showMainPage().getThisShitOffTheScreen()
                 .getSearchResults( "Technological singularity" );
@@ -80,6 +90,19 @@ public class LinkSpringerTest {
     public void testSearchArticles() {
         new MainPage( driver ).showMainPage().getThisShitOffTheScreen()
                 .getSearchResults( "Serial killers" )
+                .getArticleSearchRes();
+    }
+
+    @Test
+    public void bigTest() {
+        new MainPage( driver ).showMainPage().getThisShitOffTheScreen()
+                .openGearBtn()
+                .selectAdvancedSearch()
+                .typeAllWords( "Page Object Model" )
+                .typeOneOfWords( "Sellenium Testing" )
+                .typeStartYear( "2023" )
+                .typeEndYear( "2023" )
+                .clickSubmitBtn()
                 .getArticleSearchRes();
     }
 

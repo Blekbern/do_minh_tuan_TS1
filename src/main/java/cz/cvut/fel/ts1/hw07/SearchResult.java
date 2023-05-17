@@ -18,6 +18,8 @@ public class SearchResult {
     @FindBy( how = How.CSS, using = "#content-type-facet" )
     private WebElement contentTypes;
     private WebElement articleSelect;
+    @FindBy( how = How.CSS, using = "#results-list")
+    private WebElement searchResultList;
 
     public SearchResult( WebDriver driver ) {
         WebDriverWait wait = new WebDriverWait( driver, Duration.ofSeconds(10) );
@@ -37,5 +39,11 @@ public class SearchResult {
         }
         articleSelect.click();
         return this;
+    }
+
+    public ArticlePage clickArticlePage( int listItemIndex ) {
+        List<WebElement> listItems = searchResultList.findElements( By.cssSelector( "li h2 a" ) );
+        listItems.get( listItemIndex ).click();
+        return new ArticlePage( driver );
     }
 }

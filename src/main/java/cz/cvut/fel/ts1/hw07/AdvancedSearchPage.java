@@ -81,8 +81,9 @@ public class AdvancedSearchPage {
         return this;
     }
 
-    public void clickSubmitBtn() {
+    public SearchResult clickSubmitBtn() {
         submitBtn.click();
+        return new SearchResult( driver );
     }
 
 }
