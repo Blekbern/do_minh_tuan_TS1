@@ -1,13 +1,21 @@
 package hw07Test;
 
+import cz.cvut.fel.ts1.hw07.ArticleInfo;
+import cz.cvut.fel.ts1.hw07.ArticlePage;
 import cz.cvut.fel.ts1.hw07.MainPage;
+import cz.cvut.fel.ts1.hw07.SearchResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LinkSpringerTest {
 
     FirefoxDriver driver;
+    ArrayList<ArticleInfo> articleInfoList = new ArrayList<ArticleInfo>();
 
     @BeforeEach
     public void init() {
@@ -94,16 +102,29 @@ public class LinkSpringerTest {
 
     @Test
     public void bigTest() {
-        new MainPage( driver ).showMainPage().getThisShitOffTheScreen()
-                .openGearBtn()
-                .selectAdvancedSearch()
-                .typeAllWords( "Page Object Model" )
-                .typeOneOfWords( "Sellenium Testing" )
-                .typeStartYear( "2023" )
-                .typeEndYear( "2023" )
-                .clickSubmitBtn()
-                .getArticleSearchRes()
-                .clickArticlePage( 0 );
+        SearchResult searchRes =
+            new MainPage(driver).showMainPage().getThisShitOffTheScreen()
+                    .openGearBtn()
+                    .selectAdvancedSearch()
+                    .typeAllWords("Page Object Model")
+                    .typeOneOfWords("Sellenium Testing")
+                    .typeStartYear("2023")
+                    .typeEndYear("2023")
+                    .clickSubmitBtn()
+                    .getArticleSearchRes();
+        
+        for( int i = 0; i < 4; i++ ) {
+            ArticlePage articlePage = searchRes.clickArticlePage( i );
+            ArticleInfo articleInfo = new ArticleInfo(
+                    articlePage.getTitle(),
+                    articlePage.getDoi(),
+                    articlePage.getDatePublished()
+            );
+            System.out.println( articleInfo.getTitle() );
+            System.out.println( articleInfo.getDoi() );
+            System.out.println( articleInfo.getDatePublished() );
+            articleInfoList.add( articleInfo );
+            driver.navigate().back();
+        }
     }
-
 }

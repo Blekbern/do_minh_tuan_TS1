@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchResult {
@@ -18,7 +19,7 @@ public class SearchResult {
     @FindBy( how = How.CSS, using = "#content-type-facet" )
     private WebElement contentTypes;
     private WebElement articleSelect;
-    @FindBy( how = How.CSS, using = "#results-list")
+    @FindBy( how = How.CSS, using = "#results-list" )
     private WebElement searchResultList;
 
     public SearchResult( WebDriver driver ) {
@@ -39,6 +40,14 @@ public class SearchResult {
         }
         articleSelect.click();
         return this;
+    }
+
+    public List<WebElement> getArticleAnchors( int cnt ) {
+        List<WebElement> listItems = searchResultList.findElements( By.cssSelector( "li h2 a" ) );
+        List<WebElement> res = new ArrayList<>();
+        for( int i = 0; i < cnt; i++ )
+            res.add( listItems.get( i ) );
+        return res;
     }
 
     public ArticlePage clickArticlePage( int listItemIndex ) {
